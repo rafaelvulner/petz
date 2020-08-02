@@ -15,13 +15,12 @@ public class PetDTO {
 
     private String raca;
 
-    private Cliente cliente;
+    private Integer idCliente;
 
     public PetDTO(Pet p) {
         this.id = p.getId();
         this.nome = p.getNome();
         this.raca = p.getRaca();
-        this.cliente = p.getCliente();
     }
 
     public PetDTO(){}

@@ -2,7 +2,6 @@ package com.petz.service;
 
 import com.petz.entity.Cliente;
 import com.petz.entity.Pet;
-import com.petz.entity.dtos.ClienteDTO;
 import com.petz.entity.dtos.PetDTO;
 import com.petz.entity.dtos.PetGetDTO;
 import com.petz.exceptions.ClienteNotFound;
@@ -12,7 +11,7 @@ import com.petz.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,34 +29,53 @@ public class PetService {
         return this.petRepository.findAll().stream().map(pet -> new PetGetDTO(pet)).collect(Collectors.toList());
     }
 
-    public PetDTO save(PetDTO dto){
-        return new PetDTO(this.petRepository.save(new Pet(dto)));
+    public PetGetDTO save(PetDTO dto){
+
+        Pet pet = new Pet(dto);
+
+        if(dto.getIdCliente() != null){
+            Optional<Cliente> cliente = this.clienteRepository.findById(dto.getIdCliente());
+
+            if(!cliente.isPresent())
+                throw new ClienteNotFound("Cliente não encontrado");
+
+            pet.setCliente(cliente.get());
+        }
+
+        return new PetGetDTO(this.petRepository.save(pet));
     }
 
-    public PetDTO update(PetDTO dto){
+    @Transactional
+    public PetGetDTO update(PetDTO dto){
         Optional<Pet> pet = this.petRepository.findById(dto.getId());
 
         if(!pet.isPresent())
             throw new PetNotFound("Pet não encontrato");
 
-        Optional<Cliente> cliente = this.clienteRepository.findById(dto.getCliente().getId());
+       if(dto.getIdCliente() != null){
+           Optional<Cliente> cliente = this.clienteRepository.findById(dto.getIdCliente());
 
-        if(!cliente.isPresent())
-            throw new ClienteNotFound("Cliente não encontrado");
+           if(!cliente.isPresent())
+               throw new ClienteNotFound("Cliente não encontrado");
 
-        pet.get().setCliente(cliente.get());
+           pet.get().setCliente(cliente.get());
+       }
+
+       pet.get().setNome(dto.getNome());
+       pet.get().setRaca(dto.getRaca());
+
         this.petRepository.save(pet.get());
-        return new PetDTO(pet.get());
+        return new PetGetDTO(pet.get());
     }
 
-    public PetDTO findById(Integer id){
+    public PetGetDTO findById(Integer id){
 
         Optional<Pet> pet = this.petRepository.findById(id);
 
         if(!pet.isPresent())
             throw new PetNotFound("Pet não encontrado!");
 
-        return new PetDTO(pet.get());
+        return new PetGetDTO(pet.get());
     }
 
     public void delete(Integer id){

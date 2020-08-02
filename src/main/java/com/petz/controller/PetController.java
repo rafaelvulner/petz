@@ -39,9 +39,9 @@ public class PetController {
             @ApiResponse(code = 500, message = "Problemas na execução")
     })
     @PostMapping
-    public ResponseEntity<PetDTO> save(@RequestBody PetDTO dto){
+    public ResponseEntity<PetGetDTO> save(@RequestBody PetDTO dto){
 
-        PetDTO petDto = this.petService.save(dto);
+        PetGetDTO petDto = this.petService.save(dto);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{codigo}")
@@ -57,7 +57,7 @@ public class PetController {
             @ApiResponse(code = 500, message = "pet não encontrado")
     })
     @GetMapping("{id}")
-    public ResponseEntity<PetDTO> findById(@PathVariable("id") Integer id){
+    public ResponseEntity<PetGetDTO> findById(@PathVariable("id") Integer id){
         return ResponseEntity.ok(this.petService.findById(id));
     }
 
@@ -78,7 +78,7 @@ public class PetController {
             @ApiResponse(code = 500, message = "pet não encontrado")
     })
     @PutMapping
-    public ResponseEntity<PetDTO> update(@RequestBody PetDTO dto){
+    public ResponseEntity<PetGetDTO> update(@RequestBody PetDTO dto){
         return ResponseEntity.ok(this.petService.update(dto));
     }
 }

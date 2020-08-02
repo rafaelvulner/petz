@@ -31,7 +31,6 @@ public class Pet {
         this.id = p.getId();
         this.nome = p.getNome();
         this.raca = p.getRaca();
-        this.cliente = p.getCliente();
     }
 
     public Pet(){}

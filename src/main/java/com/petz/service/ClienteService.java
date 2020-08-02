@@ -43,12 +43,12 @@ public class ClienteService {
         this.clienteRepository.deleteById(id);
     }
 
-    public ClienteDTO findById(Integer id){
+    public ClienteGetDTO findById(Integer id){
         Optional<Cliente> cliente = this.clienteRepository.findById(id);
 
         if(!cliente.isPresent())
             throw new ClienteNotFound("Cliente não existe!");
 
-        return new ClienteDTO(cliente.get());
+        return new ClienteGetDTO(cliente.get());
     }
 }

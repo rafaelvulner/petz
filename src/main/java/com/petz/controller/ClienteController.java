@@ -80,7 +80,7 @@ public class ClienteController {
             @ApiResponse(code = 500, message = "Cliente não encontrado")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteDTO> findById(@PathVariable("id") Integer id){
+    public ResponseEntity<ClienteGetDTO> findById(@PathVariable("id") Integer id){
         return ResponseEntity.ok(this.clienteService.findById(id));
     }
 }

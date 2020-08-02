@@ -39,7 +39,6 @@ public class Cliente {
         this.nome = dto.getNome();
         this.telefone = dto.getTelefone();
         this.endereco = dto.getEndereco();
-        this.pets = dto.getDtoToCliente();
     }
 
     public Cliente(Integer id, String nome, String endereco) {
