@@ -42,9 +42,7 @@ mude spring.datasource.username e spring.datasource.password conforme sua instal
 <b>3. Instale o Lombok na sua IDE conforme documentação: </b><br>
 https://projectlombok.org/
 
-<b>4. Crie e execute o aplicativo usando o maven</b><br>
-
-pacote mvn
+<b>4. Execute o aplicativo usando o maven ou diretamente pelas configurações da sua IDE</b><br>
 
 mvn spring-boot: run
 
