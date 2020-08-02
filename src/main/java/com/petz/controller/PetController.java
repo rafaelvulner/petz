@@ -1,7 +1,5 @@
 package com.petz.controller;
 
-import com.petz.entity.Pet;
-import com.petz.entity.dtos.ClienteDTO;
 import com.petz.entity.dtos.PetDTO;
 import com.petz.entity.dtos.PetGetDTO;
 import com.petz.service.PetService;

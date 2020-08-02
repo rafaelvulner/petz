@@ -1,6 +1,5 @@
 package com.petz.entity.dtos;
 
-import com.petz.entity.Cliente;
 import com.petz.entity.Pet;
 import lombok.Getter;
 import lombok.Setter;
