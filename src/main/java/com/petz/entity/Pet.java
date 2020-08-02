@@ -1,17 +1,14 @@
 package com.petz.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.petz.entity.dtos.PetDTO;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@RequiredArgsConstructor
 public class Pet {
 
     @Id
@@ -26,6 +23,22 @@ public class Pet {
     private String raca;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_id", foreignKey = @ForeignKey(name = "FK_cliente_pet"))
+    @JsonIgnore
     private Cliente cliente;
+
+    public Pet(PetDTO p) {
+        this.id = p.getId();
+        this.nome = p.getNome();
+        this.raca = p.getRaca();
+        this.cliente = p.getCliente();
+    }
+
+    public Pet(){}
+
+    public Pet(Pet pet){
+        this.id = pet.getId();
+        this.nome = pet.getNome();
+        this.raca = pet.getRaca();
+    }
 }

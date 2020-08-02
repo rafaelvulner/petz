@@ -1,6 +1,7 @@
 package com.petz.entity.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.petz.entity.Cliente;
 import com.petz.entity.Pet;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class ClienteDTO {
+public class ClienteGetDTO {
 
     private Integer id;
 
@@ -21,26 +22,15 @@ public class ClienteDTO {
 
     private String endereco;
 
+    @JsonIgnore
     private List<PetDTO> pets;
 
-    public ClienteDTO(Cliente cliente) {
+    public ClienteGetDTO(Cliente cliente) {
         this.id = cliente.getId();
         this.nome = cliente.getNome();
         this.telefone = cliente.getTelefone();
         this.endereco = cliente.getEndereco();
         this.pets = clienteToDto(cliente);
-    }
-
-    public ClienteDTO(){}
-
-    @JsonIgnore
-    public List<Pet> getDtoToCliente() {
-
-        if(this.getPets() != null) {
-            return this.getPets().stream().map(p -> new Pet(p)).collect(Collectors.toList());
-        }else{
-            return null;
-        }
     }
 
     private List<PetDTO> clienteToDto(Cliente cliente){
@@ -50,5 +40,10 @@ public class ClienteDTO {
         }else{
             return null;
         }
+    }
+
+    @JsonProperty("pets")
+    public List<Pet> getPets(){
+        return this.pets.stream().map(p -> new Pet(p)).collect(Collectors.toList());
     }
 }
