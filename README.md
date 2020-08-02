@@ -37,7 +37,7 @@ Altere o nome de usuário e a senha do Postgres conforme sua instalação
 
 abra src / main / recursos / application.properties
 
-mude spring.datasource.username e spring.datasource.password conforme sua instalação do mysql
+mude spring.datasource.username e spring.datasource.password conforme sua instalação do postgres
 
 <b>3. Instale o Lombok na sua IDE conforme documentação: </b><br>
 https://projectlombok.org/
